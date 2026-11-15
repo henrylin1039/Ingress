@@ -11,22 +11,7 @@ change brightness stand out.
 
 ## Run it
 
-```bash
-pip install -r requirements.txt
-```
-
-```bash
-uvicorn backend.app:app --port 8000
-```
-
-Then open http://localhost:8000. Or with Docker:
-
-```bash
-docker build -t ingress . && docker run -p 8000:8000 ingress
-```
-
-The server needs outbound HTTPS access to `irsa.ipac.caltech.edu` (search)
-and `nasa-irsa-spherex.s3.amazonaws.com` (image data).
+Open **https://ingress-iuxy.onrender.com** in a browser. Nothing to install.
 
 ## Using it
 
@@ -189,6 +174,25 @@ collections appear automatically.
 Other settings: `INGRESS_CACHE` (cache directory), `INGRESS_PARALLEL`
 (simultaneous bucket reads, default 24), `INGRESS_SEARCH_TTL` (seconds a
 search result is reused, default 6 hours), `SPHEREX_BUCKET_URL`.
+
+## Running your own copy
+
+```bash
+pip install -r requirements.txt
+```
+
+```bash
+uvicorn backend.app:app --port 8000
+```
+
+Then open http://localhost:8000. Or with Docker:
+
+```bash
+docker build -t ingress . && docker run -p 8000:8000 ingress
+```
+
+The server needs outbound HTTPS access to `irsa.ipac.caltech.edu` (search)
+and `nasa-irsa-spherex.s3.amazonaws.com` (image data).
 
 ## Layout
 
