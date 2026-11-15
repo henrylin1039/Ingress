@@ -7,6 +7,8 @@ Enter coordinates and a date range; Ingress loads every SPHEREx exposure of
 that field and plays them as an animation, so that objects which move or
 change brightness stand out.
 
+[Read the Ingress methodology (PDF)](Ingress-Methodology.pdf)
+
 ## Run it
 
 ```bash
