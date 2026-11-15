@@ -564,7 +564,7 @@
       </table>
       <p>Fluxes are 4–13% low, the sign and size expected without an aperture correction. The sample is small, the filter model is a top hat, and the catalogue epochs differ from SPHEREx's.</p>
       <p><b>Period search.</b> For the selected object, measurements of <i>r</i> are averaged by UTC night (inverse-variance weights, nights with at least two measurements, 3% added in quadrature), converted to magnitudes, and fitted by weighted least squares with a constant plus a sinusoid at each trial period from 120 to 500 days in 1-day steps. The reported period minimises χ². Its 1σ range is the set of trial periods with Δχ² ≤ 1 after scaling χ² so that the best fit has a reduced χ² of one, which absorbs the misfit of a sinusoid to a real light curve. Before fitting, nights more than 5σ (1.4826 × MAD) from the median are set aside, because a few discrepant nights can otherwise drive a least-squares sinusoid. A period is reported only if all of these hold: at least 30 nights in at least six separate 30-day intervals; a minimum away from the ends of the range; at least 30% of the variance about a constant explained; observations spanning at least 1.5 cycles of the period found; and replication, meaning that the even-numbered and odd-numbered nights, searched separately, each give a period within 10% of the full result and each explain at least 30%. In a test on 14 other stars in the R Draconis field, the first three conditions alone accepted four spurious periods; with outlier rejection and replication none was accepted. Against a catalogued period the result is called consistent if that period lies within the 1σ range, marginal within 2σ, and otherwise not consistent. The panel beside the image shows this calculation live.</p>
-      <p><b>Time series check.</b> R Draconis, a Mira variable that saturates SPHEREx, is measured by the halo method. When this was last run on 167 nights spanning 518 days the best period was <b>245 days</b> (242–249), against a catalogued 245.6 days (<a href="http://www.sai.msu.su/gcvs/gcvs/" target="_blank" rel="noopener">General Catalogue of Variable Stars</a>). The data cover about two cycles, and a single sinusoid accounts for half of the variance, as expected for a light curve that is not sinusoidal and whose amplitude depends on wavelength.</p>
+      <p><b>Time series check.</b> R Draconis, a Mira variable that saturates SPHEREx, is measured by the halo method. When this was last run on 167 nights spanning 518 days the best period was <b>245 days</b> (242–249), against a catalogued 245.6 days (<a href="https://www.aavso.org/vsx/" target="_blank" rel="noopener">AAVSO Variable Star Index</a>). The data cover about two cycles, and a single sinusoid accounts for half of the variance, as expected for a light curve that is not sinusoidal and whose amplitude depends on wavelength.</p>
 
       <h3>8. Summary of limitations</h3>
       <ul>
@@ -585,7 +585,7 @@
 <script src="compare.js?v=7e9a1670"></script>
 <script src="measure.js?v=1b97ca48"></script>
 <script src="insight.js?v=d954075c"></script>
-<script src="period.js?v=76dfcc22"></script>
+<script src="period.js?v=3fa454c1"></script>
 <script src="dialogs.js?v=65f7dbc8"></script>
 <script>Measure.init(); Period.init(); Insight.init();</script>
 <script src="sky.js?v=661975b6"></script>

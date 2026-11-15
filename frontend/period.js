@@ -25,7 +25,7 @@ const Period = (() => {
   // Stars with a catalogued period to compare against.
   const REFERENCES = [
     { name: "R Draconis", type: "Mira variable", ra: 248.1675, dec: 66.755, period: 245.6,
-      source: "General Catalogue of Variable Stars", url: "http://www.sai.msu.su/gcvs/gcvs/" },
+      source: "AAVSO Variable Star Index", url: "https://www.aavso.org/vsx/" },
   ];
   const DATA = "#3987e5", MODEL = "#d95926", DIM = "#94a0b8";
   let analysis = null;
