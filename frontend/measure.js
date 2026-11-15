@@ -385,12 +385,15 @@ const Measure = (() => {
       else line = `<b>No significant change:</b> the largest difference is ${pct} ${span} (${v.sigma.toFixed(1)}σ).`;
     }
     let sat = "";
-    if (result.geometry.halo) sat = ` <span class="warn">This star is too bright for SPHEREx to measure its centre, so the ring of light around it is measured instead. Changes over time are reliable; the flux values are only a fraction of the star's true brightness.</span>`;
+    if (result.geometry.halo) sat = ` <span class="warn">This star is too bright for SPHEREx to measure its centre, so the ring of light around it is measured instead. Changes over time can still be followed this way, less precisely than for an unsaturated star, and the method has been checked on one star only. The flux values are a fraction of the star's true brightness.</span>`;
     else if (result.saturated) sat = ` <span class="warn">${result.saturated} of ${result.points.length} measurements are saturated (hollow points) and are left out of the comparison.</span>`;
     $("measure-method").textContent = result.geometry.halo
       ? `Typical brightness in a ring from ${result.geometry.in.toFixed(0)}″ to ${result.geometry.out.toFixed(0)}″ around the star (solid rings on the image), sky from the dashed rings. Error bars come from the scatter of the surrounding sky.`
       : "Aperture photometry in a 9.5″ circle (solid ring on the image), sky from the dashed rings. Error bars come from the scatter of the surrounding sky. Fluxes are not corrected for light falling outside the aperture: compared with the 2MASS and WISE catalogues they read about 4–13% low.";
-    $("measure-summary").innerHTML = `${fmtSexa(sky.ra, sky.dec)} · ${result.points.length} measurements<br>${line}${sat}`;
+    // What the numbers rest on. The band buttons only change the images.
+    const band = state.band === "all" ? "" : state.band.startsWith("c:") ? `the ${state.band.slice(2).replace("-", "–")} µm range` : `Band ${state.band.slice(1)}`;
+    const scope = `Measured on all loaded wavelengths (0.75–5.0 µm)${band ? `, not only ${band}: the Wavelength buttons change the images, not the measurements` : "; the Wavelength buttons change the images, not the measurements"}. Each ± reflects background noise only, so the true uncertainty is larger for bright stars.`;
+    $("measure-summary").innerHTML = `${fmtSexa(sky.ra, sky.dec)} · ${result.points.length} measurements<br>${line}${sat}<span class="scope">${scope}</span>`;
 
     const legend = $("measure-legend");
     legend.textContent = "";

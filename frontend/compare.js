@@ -272,6 +272,11 @@ const Compare = (() => {
 
   const signed = (pct) => { const r = Math.round(pct); return r === 0 ? "0%" : `${r > 0 ? "+" : "−"}${Math.abs(r)}%`; };
 
+  const fmtCount = (n) => Number(n).toLocaleString("en-US");
+  /** Headline figures for how much data stands behind what is on screen. */
+  const coverage = (items) => `<dl class="coverage">${items.map(([label, value, of]) =>
+    `<div><dt>${label}</dt><dd>${value}${of ? ` <small>${of}</small>` : ""}</dd></div>`).join("")}</dl>`;
+
   function render() {
     const box = $("context");
     const exploring = state.view === "explore";
@@ -293,6 +298,10 @@ const Compare = (() => {
       box.className = "context warn";
       box.innerHTML = `
         <p class="badge"><span aria-hidden="true">⚠</span> Viewing different infrared wavelengths</p>
+        ${coverage([
+          ["Exposures loaded", fmtCount(state.field.total), state.field.found > state.field.total ? `of ${fmtCount(state.field.found)}` : ""],
+          ["Frames in this view", fmtCount(state.frames.length), ""],
+        ])}
         <p>Each frame here is one ${unit} within ${rangeText()}, and each was taken at ${state.group === "exposure" ? "a different wavelength" : "a different mix of wavelengths"}, shown on the image.
         An object can brighten or fade from one frame to the next <b>purely because of its colour</b>, with nothing about it changing.
         Use this view to see what the sky looks like across the infrared, or to follow fast movers day by day.</p>
@@ -320,6 +329,7 @@ const Compare = (() => {
     }
 
     const used = r.epochs.filter((e) => e.used), dropped = r.epochs.filter((e) => !e.used);
+    const f = state.field;
     const haveStars = r.maxShift != null;
     const warn = [];
     if (haveStars && r.maxShift > SHIFT_WARN) warn.push(`the epochs are offset by up to ${r.maxShift.toFixed(1)}″`);
@@ -337,8 +347,14 @@ const Compare = (() => {
     box.className = "context ok";
     box.innerHTML = `
       <p class="badge"><span aria-hidden="true">✓</span> Comparing the same spectral region over time</p>
-      <p>Each frame is one epoch, built from the <b>same ${r.slices} wavelength slice${r.slices > 1 ? "s" : ""}</b> within ${rangeText()}, weighted equally.
-      A difference between frames is therefore a change over time${diff ? "; the difference view subtracts the average of these matched epochs" : ""}.
+      ${coverage([
+        ["Exposures loaded", fmtCount(f.total), f.found > f.total ? `of ${fmtCount(f.found)}` : ""],
+        ["Epochs compared", used.length, `of ${r.epochs.length}`],
+        ["Wavelength slices", r.slices, `of ${r.slicesTotal}`],
+        ["Field in every epoch", `${(r.sharedPixels * 100).toFixed(0)}%`, ""],
+      ])}
+      <p>Each frame is one epoch, built from the <b>same ${r.slices} wavelength slice${r.slices > 1 ? "s" : ""}</b> within ${rangeText()}, weighted equally, so a difference between frames is not a difference in wavelength${diff ? "; the difference view subtracts the average of these matched epochs" : ""}.
+      Small differences can still come from how well the epochs line up and how sharp their stars are, ${haveStars ? "which are measured below but not corrected" : "which could not be measured in this field"}.
       ${r.slices < r.slicesTotal ? `${r.slicesTotal - r.slices} of ${r.slicesTotal} slices are not used because at least one epoch did not observe them.` : ""}
       ${r.noisy ? `${r.noisy} unusually noisy exposure${r.noisy > 1 ? "s are" : " is"} left out.` : ""}
       ${dropped.length ? `${dropped.length} epoch${dropped.length > 1 ? "s are" : " is"} left out for lack of matching wavelengths.` : ""}</p>

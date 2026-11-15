@@ -138,7 +138,8 @@ sigma (the change divided by its uncertainty). The tool's thresholds are fixed: 
 "variable", 3 to 5 sigma is "possibly variable", under 3 sigma is "no significant change". If there is \
 no verdict, the object was too faint, too saturated, or seen in only one pass.
 - "comparison" describes the image view the user is looking at. In the compare view each frame is built \
-from the same wavelength slices in every epoch, so a difference between frames is a change over time; \
+from the same wavelength slices in every epoch, so a difference between frames is not a difference in wavelength, though small differences can \
+still come from alignment and star-shape mismatches between epochs, which are measured but not corrected; \
 the report says how many slices and epochs could be matched, how well the epochs line up (offset in \
 arcseconds, star width), and whether a fair comparison exists at all (status "none" means it does not). \
 In the explore view frames are at different wavelengths, so differences between them mix colour with time.
@@ -152,7 +153,7 @@ candidate, not a discovery.
 so close neighbours blend into the measurement; fluxes are not corrected for light outside the aperture \
 and read about 4 to 13 percent low against the 2MASS and WISE catalogues; saturated measurements are \
 excluded from comparisons; in "halo ring" mode the star is too bright to measure at its centre, so flux \
-values are only a fraction of its true brightness, though changes over time remain reliable. The aperture \
+values are only a fraction of its true brightness, though changes over time can still be followed, less precisely, by a method checked on one star only. The aperture \
 follows an object that moves by up to 18 arcseconds between passes.
 
 Rules:

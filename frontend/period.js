@@ -208,7 +208,7 @@ const Period = (() => {
       return;
     }
     const a = (analysis = analyse(res.points));
-    const used = `${a.nights} night${a.nights === 1 ? "" : "s"}${a.span ? ` spanning ${a.span} days` : ""}${a.clipped ? ` (${a.clipped} outlying night${a.clipped > 1 ? "s" : ""} set aside)` : ""}, from ${res.points.length} exposures${res.geometry.halo ? ", measured from the star's halo because its centre saturates" : ""}`;
+    const used = `${a.nights} night${a.nights === 1 ? "" : "s"}${a.span ? ` spanning ${a.span} days` : ""}${a.clipped ? ` (${a.clipped} outlying night${a.clipped > 1 ? "s" : ""} set aside)` : ""}, from ${res.points.length} exposures${state.field.found > state.field.total ? ` (${state.field.total.toLocaleString("en-US")} of ${state.field.found.toLocaleString("en-US")} available were loaded)` : ""}${res.geometry.halo ? ", measured from the star's halo because its centre saturates" : ""}`;
     if (a.status !== "ok") {
       box.innerHTML = `
         <p class="verdict none"><span aria-hidden="true">∅</span> No period reported</p>

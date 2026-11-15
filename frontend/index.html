@@ -8,7 +8,7 @@
   <meta name="theme-color" content="#05060a">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%2305060a'/%3E%3Ccircle cx='36' cy='32' r='20' fill='%23f1efe9'/%3E%3Ccircle cx='18' cy='32' r='7' fill='%2305060a'/%3E%3C/svg%3E">
   <link rel="preload" href="fonts/archivo-latin-wdth-normal.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="style.css?v=236069ba">
+  <link rel="stylesheet" href="style.css?v=99a295ed">
   <script>document.documentElement.classList.add("js");</script>
 </head>
 <body>
@@ -321,7 +321,7 @@
       <p>This is the most important choice on the page. A SPHEREx exposure records each point of sky at <b>one wavelength</b>, and the wavelength differs from exposure to exposure. A star that is brighter at 2 µm than at 4 µm will appear to fade between two such exposures even though nothing happened to it.</p>
       <dl>
         <dt>Compare over time</dt>
-        <dd>One frame per epoch (each period when SPHEREx was observing this field, typically six months apart). Every frame is built from the <b>same wavelengths with the same weighting</b>, so a difference between frames is a change over time. Use this to find things that moved or changed brightness.</dd>
+        <dd>One frame per epoch (each period when SPHEREx was observing this field, typically six months apart). Every frame is built from the <b>same wavelengths with the same weighting</b>, so a difference between frames is not a difference in wavelength. Small differences can still come from how well the epochs line up and how sharp their stars are; the panel beside the image reports both. Use this to find things that moved or changed brightness.</dd>
         <dt>Explore wavelengths</dt>
         <dd>One frame per exposure, day or survey pass, each at its own wavelength, which is printed on the image. Use this to see how the sky looks across the infrared, or to follow fast movers such as asteroids from day to day. Brightness changes here can be colour alone.</dd>
         <dt>The panel under the image</dt>
@@ -359,7 +359,7 @@
         <dt>Field of view</dt>
         <dd>Zooms to a smaller square around the centre. This is instant because the data is already loaded.</dd>
         <dt>Wavelength: All and Bands 1 to 6</dt>
-        <dd>SPHEREx has six detectors, each covering part of the range from 0.75 to 5.0 µm. Different bands reveal different things:
+        <dd>These choose which wavelengths the <b>images</b> are made from. Measurements of a clicked object always use every wavelength loaded. SPHEREx has six detectors, each covering part of the range from 0.75 to 5.0 µm. Different bands reveal different things:
           <ul>
             <li><b>Bands 1 to 3 (0.75–2.42 µm)</b>: ordinary starlight; most stars are brightest here.</li>
             <li><b>Band 4 (2.42–3.82 µm)</b>: contains the water-ice absorption near 3.0 µm.</li>
@@ -393,7 +393,7 @@
         <dt>Error bars</dt>
         <dd>Estimated from how much the surrounding sky scatters. They do not include every instrumental effect.</dd>
         <dt>Moving and very bright objects</dt>
-        <dd>The measuring ring follows an object that moves between passes. For a star too bright to measure at its centre, Ingress measures the halo of light around it and says so: changes over time remain reliable, the flux values do not.</dd>
+        <dd>The measuring ring follows an object that moves between passes. For a star too bright to measure at its centre, Ingress measures the halo of light around it and says so. Changes over time can still be followed this way, less precisely and checked on one star only; the flux values are a fraction of the star's true brightness.</dd>
         <dt>AI reading</dt>
         <dd>An AI model can be sent these measurements and writes, in plain words, what each one means and whether it is significant, with the figures under <b>Technical details</b>. It explains the numbers; it does not produce them, and it can be wrong. It appears only when the site has been set up with an OpenAI key.</dd>
         <dt>Copy link, Download, Clear</dt>
@@ -582,10 +582,10 @@
 </div>
 
 <script src="app.js?v=13474984"></script>
-<script src="compare.js?v=af866795"></script>
-<script src="measure.js?v=0af3ddc6"></script>
+<script src="compare.js?v=7e9a1670"></script>
+<script src="measure.js?v=1b97ca48"></script>
 <script src="insight.js?v=d954075c"></script>
-<script src="period.js?v=7e635727"></script>
+<script src="period.js?v=76dfcc22"></script>
 <script src="dialogs.js?v=65f7dbc8"></script>
 <script>Measure.init(); Period.init(); Insight.init();</script>
 <script src="sky.js?v=661975b6"></script>
