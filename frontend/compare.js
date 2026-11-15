@@ -263,7 +263,7 @@ const Compare = (() => {
   const LIMITS = `
     <details><summary>What can still mislead in this view</summary><ul>
       <li><b>Wavelengths are matched in slices, not exactly.</b> Each slice is a sixth of a detector band. Inside a slice the epochs' wavelengths differ a little, so a source with a steep or spiky spectrum can still show a small false change.</li>
-      <li><b>Alignment is not corrected.</b> Images are placed using the archive's astrometry. The measured offsets are in the table; an offset of a fraction of a 6.15″ pixel puts a dark and bright pair on every star in the difference view. A real mover shows that pair on one object only.</li>
+      <li><b>Alignment is not corrected.</b> Images are placed using the archive's astrometry. The measured offsets are listed above; an offset of a fraction of a 6.15″ pixel puts a dark and bright pair on every star in the difference view. A real mover shows that pair on one object only.</li>
       <li><b>Star shapes differ between epochs.</b> SPHEREx's sharpness depends on wavelength and on where a star falls on the detector, and the telescope is rotated between epochs. Rings and spikes around bright stars in the difference view are that, not variability.</li>
       <li><b>Sky level is removed.</b> Each exposure has its median brightness subtracted to take out zodiacal light, so a change in overall sky brightness, or in emission that fills the field, is not preserved.</li>
       <li><b>Masked and saturated pixels.</b> Flagged pixels and isolated outliers are left out. A pixel is shown for an epoch only if at least 85% of the matched slices observed it, so at such pixels the wavelength mix can differ slightly between epochs. Saturated star cores are filled with a flat value and carry no brightness information.</li>
@@ -325,9 +325,15 @@ const Compare = (() => {
     if (haveStars && r.maxShift > SHIFT_WARN) warn.push(`the epochs are offset by up to ${r.maxShift.toFixed(1)}″`);
     if (haveStars && r.widthSpread > WIDTH_WARN) warn.push(`star images differ in width by ${(r.widthSpread * 100).toFixed(0)}%`);
     if (r.sharedPixels < 0.8) warn.push(`only ${(r.sharedPixels * 100).toFixed(0)}% of the field was observed in every epoch`);
+    // One entry per epoch, stacked so it reads in a narrow column.
     const rows = r.epochs.map((e) => e.used
-      ? `<tr><td>${e.index + 1}</td><td>${fmtDate(e.t0)} → ${fmtDate(e.t1)}</td><td>${e.nUsed} of ${e.exposures.length}</td><td>${e.wave.toFixed(3)} µm</td><td>${e.shift != null ? e.shift.toFixed(1) + "″" : "–"}</td><td>${e.width != null ? signed((e.width - 1) * 100) : "–"}</td></tr>`
-      : `<tr class="out"><td>${e.index + 1}</td><td>${fmtDate(e.t0)} → ${fmtDate(e.t1)}</td><td colspan="4">left out: ${e.reason}</td></tr>`).join("");
+      ? `<li><b>Epoch ${e.index + 1}</b> <span class="when">${fmtDate(e.t0)} → ${fmtDate(e.t1)}</span>
+          <dl><div><dt>Exposures</dt><dd>${e.nUsed} of ${e.exposures.length}</dd></div>
+          <div><dt>Wavelength</dt><dd>${e.wave.toFixed(3)} µm</dd></div>
+          <div><dt>Offset</dt><dd>${e.shift != null ? e.shift.toFixed(1) + "″" : "–"}</dd></div>
+          <div><dt>Star width</dt><dd>${e.width != null ? signed((e.width - 1) * 100) : "–"}</dd></div></dl></li>`
+      : `<li class="out"><b>Epoch ${e.index + 1}</b> <span class="when">${fmtDate(e.t0)} → ${fmtDate(e.t1)}</span>
+          <p>Left out: ${e.reason}.</p></li>`).join("");
     box.className = "context ok";
     box.innerHTML = `
       <p class="badge"><span aria-hidden="true">✓</span> Comparing the same spectral region over time</p>
@@ -336,10 +342,9 @@ const Compare = (() => {
       ${r.slices < r.slicesTotal ? `${r.slicesTotal - r.slices} of ${r.slicesTotal} slices are not used because at least one epoch did not observe them.` : ""}
       ${r.noisy ? `${r.noisy} unusually noisy exposure${r.noisy > 1 ? "s are" : " is"} left out.` : ""}
       ${dropped.length ? `${dropped.length} epoch${dropped.length > 1 ? "s are" : " is"} left out for lack of matching wavelengths.` : ""}</p>
-      <table>
-        <thead><tr><th>Epoch</th><th>Dates</th><th>Exposures used</th><th>Mean wavelength</th><th>Offset</th><th>Star width</th></tr></thead>
-        <tbody>${rows}</tbody>
-      </table>
+      ${r.epochs.length > 4
+        ? `<details class="epochs-more"><summary>Details of all ${r.epochs.length} epochs (${used.length} compared, ${dropped.length} left out)</summary><ol class="epochs">${rows}</ol></details>`
+        : `<ol class="epochs">${rows}</ol>`}
       <p class="fine">Mean wavelengths agree to ${r.waveSpread < 0.001 ? "better than 0.1" : "within " + (r.waveSpread * 100).toFixed(1)}%. ${(r.sharedPixels * 100).toFixed(0)}% of the field was observed in every epoch.
       ${haveStars ? `Offset and star width are measured from ${r.stars} stars, relative to the average of the epochs.` : "Too few suitable stars in this field to measure alignment or sharpness."}
       All frames share one brightness scale.</p>

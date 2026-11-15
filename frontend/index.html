@@ -8,7 +8,7 @@
   <meta name="theme-color" content="#05060a">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%2305060a'/%3E%3Ccircle cx='36' cy='32' r='20' fill='%23f1efe9'/%3E%3Ccircle cx='18' cy='32' r='7' fill='%2305060a'/%3E%3C/svg%3E">
   <link rel="preload" href="fonts/archivo-latin-wdth-normal.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="style.css?v=335ab00d">
+  <link rel="stylesheet" href="style.css?v=236069ba">
   <script>document.documentElement.classList.add("js");</script>
 </head>
 <body>
@@ -32,6 +32,7 @@
 
 <main class="tool" id="viewer">
   <div class="layout">
+    <div class="rail">
     <form id="query" class="panel" novalidate>
       <h2>Field</h2>
 
@@ -75,6 +76,10 @@
       </div>
     </form>
 
+    <!-- What the current view shows and how far to trust it (filled by compare.js). -->
+    <section id="context" class="context" hidden aria-live="polite"></section>
+    </div>
+
     <section class="viewer">
       <div class="views" role="radiogroup" aria-label="What to look at">
         <button id="view-compare" type="button" role="radio" aria-checked="true" class="on">
@@ -115,8 +120,6 @@
         <span id="speed-val" class="num">4 fps</span>
       </div>
       <canvas id="timeline" width="640" height="46" aria-label="Exposure timeline"></canvas>
-
-      <section id="context" class="context" hidden aria-live="polite"></section>
 
       <div class="controls">
         <fieldset>
@@ -322,7 +325,7 @@
         <dt>Explore wavelengths</dt>
         <dd>One frame per exposure, day or survey pass, each at its own wavelength, which is printed on the image. Use this to see how the sky looks across the infrared, or to follow fast movers such as asteroids from day to day. Brightness changes here can be colour alone.</dd>
         <dt>The panel under the image</dt>
-        <dd>States which of the two you are doing. When comparing, its table lists each epoch's dates, how many exposures were used, their mean wavelength, how far the epoch is offset from the others, and how its star images differ in width. It warns when the epochs are poorly matched, and says plainly when no fair comparison exists.</dd>
+        <dd>States which of the two you are doing. When comparing, it lists each epoch's dates, how many exposures were used, their mean wavelength, how far the epoch is offset from the others, and how its star images differ in width. It warns when the epochs are poorly matched, and says plainly when no fair comparison exists.</dd>
       </dl>
 
       <h3>3. Read the image</h3>
@@ -579,7 +582,7 @@
 </div>
 
 <script src="app.js?v=13474984"></script>
-<script src="compare.js?v=dc7e86f9"></script>
+<script src="compare.js?v=af866795"></script>
 <script src="measure.js?v=0af3ddc6"></script>
 <script src="insight.js?v=d954075c"></script>
 <script src="period.js?v=7e635727"></script>
